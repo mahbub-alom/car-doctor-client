@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import login from "../../assets/images/login/login.svg";
-import { FaGoogle, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProviders/AuthProviders";
+import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 
 const Login = () => {
 
@@ -20,24 +20,8 @@ const Login = () => {
         signIn(email,password)
         .then(result=>{
             const user=result.user;
-            const loggedUser ={
-              email:user.email
-            }
-            console.log(loggedUser);
-            fetch('http://localhost:5000/jwt',{
-              method:'POST',
-              headers:{
-                'content-type':'application/json'
-              },
-              body:JSON.stringify(loggedUser)
-            })
-            .then(res=>res.json())
-            .then(data=>{
-              console.log('jwt response',data);
-              //warning: local storage is not the best (second best place) to store access token
-              localStorage.setItem('car-access-token', data.token);
-              navigate(from, {replace:true})
-            })
+            console.log(user);
+            navigate(from, {replace:true})
         })
         .catch(error=>{
             console.log(error.message);
@@ -83,15 +67,15 @@ const Login = () => {
                   value="Sign In"
                 />
               </div>
-              <p className="text-center">Or Sign in with</p>
-              <div className="flex gap-2 justify-center">
-                <FaGoogle className="cursor-progress"></FaGoogle>
+              {/* <div className="flex gap-2 justify-center">
+                
                 <FaFacebookF className="cursor-progress"></FaFacebookF>
                 <FaLinkedinIn className="cursor-progress"></FaLinkedinIn>
-              </div>
-              <h2>New User ? Please <Link className="btn-primary text-white rounded p-1" to='/signup'>Sign Up</Link></h2>
+              </div> */}
             </div>
           </form>
+          <p className="my-4 text-center">New to car Doctors? <Link to='/signup' className="text-orange-600 font-bold">Sign Up</Link></p>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>

@@ -1,30 +1,30 @@
 import React, { useContext } from "react";
-import signup from '../../../assets/images/login/login.svg';
-import { FaGoogle, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
+import signup from "../../../assets/images/login/login.svg";
+// import { FaGoogle, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../AuthProviders/AuthProviders";
+import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 
 const SignUp = () => {
+  const { signUp } = useContext(AuthContext);
 
-    const {signUp}=useContext(AuthContext);
+  const handleSignUp = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(name, email, password);
 
-    const handleSignUp =(event)=>{
-        event.preventDefault()
-        const form=event.target;
-        const name = form.name.value;
-        const email= form.email.value;
-        const password = form.password.value;
-        console.log(name,email,password);
-        
-        signUp(email,password)
-        .then(result=>{
-            const loggedUser=result.user;
-            console.log(loggedUser);
-        })
-        .catch(error=>{
-            console.log(error.message);
-        })
-    }
+    signUp(email, password)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -76,13 +76,16 @@ const SignUp = () => {
                   value="Sign Up"
                 />
               </div>
-              <p className="text-center">Or Sign up with</p>
-              <div className="flex gap-2 justify-center">
+
+              {/* <div className="flex gap-2 justify-center">
                 <FaGoogle className="cursor-progress"></FaGoogle>
                 <FaFacebookF className="cursor-progress"></FaFacebookF>
                 <FaLinkedinIn className="cursor-progress"></FaLinkedinIn>
-              </div>
-              <h2>
+              </div> */}
+            </div>
+          </form>
+          <div className="text-center">
+          <h2>
                 Already Have an account ? Please {' '}
                 <Link
                   className="btn-primary text-white rounded p-1"
@@ -91,8 +94,8 @@ const SignUp = () => {
                   Login
                 </Link>
               </h2>
-            </div>
-          </form>
+          </div>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>
