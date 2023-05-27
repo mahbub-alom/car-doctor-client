@@ -40,7 +40,7 @@ useEffect(()=>{
             const loggedUser ={
                 email:currentUser.email
               }
-            fetch('https://car-doctor-server-mahbub-alom.vercel.app/jwt',{
+            fetch('http://localhost:5000/jwt',{
                 method:'POST',
                 headers:{
                   'content-type':'application/json'
