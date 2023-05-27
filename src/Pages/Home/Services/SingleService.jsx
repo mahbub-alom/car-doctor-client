@@ -8,14 +8,14 @@ const SingleService = () => {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/services?sort=${asc ? "asc" : "desc"}&search=${search}`)
+    fetch(`https://car-doctor-server-black-rho.vercel.app/services?search=${search}&sort=${asc ? "asc" : "desc"}`)
       .then((res) => res.json())
       .then((data) => setServices(data));
   }, [asc,search]);
 
   const handleClick = () => {
-    console.log(searchRef.current.value);
     setSearch(searchRef.current.value);
+    console.log(searchRef.current.value);
   };
 
   return (
